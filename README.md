@@ -12,14 +12,16 @@ Each poster has:
 
 ## Poster metadata
 
-- slug
-- title:
-- authors:
-- topics: we will created set of pre-defined topics, posters will relate to that set
-- keywords: free set of keywords.
+One poster will have one sidecar file with name `{slug}.md`. Metadata in front matter, 
+
+- slug: short textual identifier of the poster
+- title: text, can include subtitle
+- authors: list of author names, no e-mail
+- topics: we will created set of pre-defined topics, posters will relate to that set. We will have to propose the topics.
+- keywords: free set of keywords. An array.
 - annotation: up to 50 words. Just one paragraph of text.
-- contact e-mail: if you provide it, it will be published on the index page with all the posters.
-- content: we shall consider filling in text extracted from the poster to allow full text search.
+- contact e-mail: can be empty. If provided, we can publish that.
+- body: actually body of mardkown file created by exporting the PDF into markdown or text. The only purpose is to provide textual content for full text search, not to be presented on web presentation (as it can be messy).
 
 The metadata are initially provided in Excel file (not yet curated): <https://rupprechtconsultde.sharepoint.com/:x:/r/sites/NAPCORE-Xallpartners254/Shared%20Documents/WG5%20-%20Data%20Provision%20and%20Use/Task%205.2%20Tools/Mobility%20Data%20Days%202026/Posters/MDD%202026%20Posters.xlsx?d=w3d9563bbedda4b3da8eb995bbc198f3b&csf=1&web=1&e=GTUBpa>
 
