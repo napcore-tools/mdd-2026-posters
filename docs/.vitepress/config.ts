@@ -3,6 +3,11 @@ import { copyFileSync, createReadStream, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 import { CONTENT_DIR, readPosters } from './core/content.ts';
+import { reportIssues, validateContent } from './core/validation.ts';
+
+// Check content/ when the config loads: `vitepress build` stops on errors,
+// the dev server only reports them so content can be fixed while it runs
+reportIssues(validateContent(), { failOnError: process.argv.includes('build') });
 
 // GitHub Pages serves the site from /mdd-2026-posters/; the deploy workflow sets VITEPRESS_BASE.
 // Locally the site runs at the root.

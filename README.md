@@ -39,6 +39,10 @@ All poster content lives in `content/`:
 
 The site builds a page `/posters/<slug>` for every poster with `status: ready`. The slug is the file name.
 
+### Content check
+
+Every build and dev server start checks `content/` (`docs/.vitepress/core/validation.ts`). Errors stop `npm run build`, so a broken poster is never deployed: unreadable front matter, a `slug` that differs from the file name, a missing title or PDF, a topic not in `topics.csv`, a duplicate or unlabelled topic. Warnings are only printed: an annotation over 200 words, missing authors, keywords, topics or annotation, an invalid e-mail, a PDF without `.md`, a missing preview, a poster that is not `ready`. The dev server prints errors too but keeps running.
+
 ### Search and topics
 
 The home page searches all metadata fields and the poster text in the browser ([MiniSearch](https://lucaong.github.io/minisearch/), `docs/.vitepress/theme/search.ts`). Matches in title, keywords and authors rank highest; terms match as prefixes, with small typos and without accents. A topic button narrows the list to one topic. Search and topic are kept in the URL, so a filtered view can be linked, e.g. `/?topic=data-quality` or `/?q=datex`.
@@ -60,7 +64,7 @@ One poster will have one sidecar file with name `{slug}.md`. Metadata in front m
 - authors: list of author names, no e-mail
 - topics: we will created set of pre-defined topics, posters will relate to that set. We will have to propose the topics.
 - keywords: free set of keywords. An array.
-- annotation: up to 50 words. Just one paragraph of text.
+- annotation: up to 200 words. Just one paragraph of text.
 - contact e-mail: can be empty. If provided, we can publish that.
 - body: actually body of mardkown file created by exporting the PDF into markdown or text. The only purpose is to provide textual content for full text search, not to be presented on web presentation (as it can be messy).
 

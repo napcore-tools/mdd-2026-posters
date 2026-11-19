@@ -60,13 +60,15 @@ function fileSize(file: string): number {
   }
 }
 
-/** Reads one content/<slug>.md; the slug is the file name */
+/** Whether both preview images of a poster exist */
+export function previewExists(slug: string): boolean {
+  return PREVIEW_WIDTHS.every((w) => existsSync(join(PREVIEW_DIR, `${slug}-${w}.jpg`)));
+}
+
+/** Reads one content/<slug>.md; the slug is the file name (validation.ts checks the content) */
 export function readPoster(file: string): Poster {
   const slug = basename(file, '.md');
   const { data: fm, content } = matter(readFileSync(file, 'utf8'));
-  if (fm.slug && fm.slug !== slug) {
-    console.warn(`[posters] ${basename(file)}: front matter slug "${fm.slug}" differs from the file name`);
-  }
   return {
     slug,
     status: String(fm.status ?? ''),
@@ -79,7 +81,7 @@ export function readPoster(file: string): Poster {
     url: `/posters/${slug}`,
     text: content.replace(/\s+/g, ' ').trim(),
     pdfSize: fileSize(file.replace(/\.md$/, '.pdf')),
-    hasPreview: PREVIEW_WIDTHS.every((w) => existsSync(join(PREVIEW_DIR, `${slug}-${w}.jpg`))),
+    hasPreview: previewExists(slug),
   };
 }
 
@@ -91,7 +93,14 @@ export function readPosters(files?: string[]): Poster[] {
       .filter((f) => f.endsWith('.md'))
       .map((f) => join(CONTENT_DIR, f));
   return mdFiles
-    .map(readPoster)
+    .flatMap((file) => {
+      try {
+        return [readPoster(file)];
+      } catch {
+        // Unreadable front matter: validation.ts reports it, the dev server keeps running
+        return [];
+      }
+    })
     .filter((p) => p.status === PUBLISHED_STATUS)
     .sort((a, b) => a.title.localeCompare(b.title, 'en'));
 }
