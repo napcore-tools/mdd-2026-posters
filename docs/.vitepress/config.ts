@@ -22,7 +22,7 @@ const SITE_URL = (process.env.SITE_URL || 'https://napcore-tools.github.io/mdd-2
 
 const SITE_TITLE = 'MDD 2026 Posters';
 const REPO_URL = 'https://github.com/napcore-tools/mdd-2026-posters';
-const DESCRIPTION = 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens';
+const DESCRIPTION = 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens, 25–26 November 2026';
 
 /** Dev server: serves content/<slug>.pdf at /posters/<slug>.pdf (the build copies them in buildEnd) */
 function posterPdfs(): Plugin {
