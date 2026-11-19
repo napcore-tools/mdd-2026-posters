@@ -1,0 +1,56 @@
+/**
+ * Site styles. Brand tokens and VitePress overrides live in napcore-theme.css.
+ */
+
+/* Home page header: navy band like the napcore.eu hero, kept short so the posters come first */
+.home-header {
+  margin: 0 0 32px;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, var(--napcore-navy) 0%, var(--napcore-navy-dark) 100%);
+  color: #fff;
+}
+
+.home-header-inner {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.home-header h1 {
+  margin: 0;
+  color: var(--napcore-yellow);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.home-header .event {
+  margin: 0.5rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.home-header .intro {
+  max-width: 720px;
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.home-content {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+@media (max-width: 640px) {
+  .home-header {
+    padding: 28px 16px;
+  }
+
+  .home-header h1 {
+    font-size: 2rem;
+  }
+
+  .home-content {
+    padding: 0 16px 32px;
+  }
+}

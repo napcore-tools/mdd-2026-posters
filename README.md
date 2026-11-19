@@ -2,6 +2,51 @@
 
 This repository serves a page or website with index of posters in Poster Corner as planned for NAPCORE Mobility Data Days 2026 in Athens (mdd-2026).
 
+The site is built with [VitePress](https://vitepress.dev/) and uses the NAPCORE branding from the [Awesome NAPCORE](https://github.com/napcore-tools/web-awesome_napcore_tools) site.
+
+## Development
+
+Requires Node.js 22.12+ or 24+.
+
+```sh
+npm install
+npm run dev        # development server at http://localhost:5173
+npm run build      # static site in docs/.vitepress/dist
+npm run preview    # serve the built site
+npm run type-check
+npm run format     # check formatting (format:fix to apply)
+```
+
+Pushing to `master` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). Without a custom domain the workflow sets `VITEPRESS_BASE=/mdd-2026-posters/`. To preview a build with that base locally, set the same variable for both `build` and `preview`.
+
+## Adding a poster
+
+Each poster consists of two files that share the same slug:
+
+- `docs/posters/<slug>.md`: metadata in the front matter, text extracted from the poster in the body
+- `docs/public/posters/<slug>.pdf`: the printed poster, served unchanged at `/posters/<slug>.pdf`
+
+Front matter:
+
+```yaml
+---
+slug: chimera # must match the file name
+status: ready
+title: "Chimera: Interoperable and AI-ready Mobility (Meta)Data Leveraging Knowledge Graphs"
+authors: "Mario Scrocca, Marco Comerio, Marco Grassi, Alessio Carenini (Cefriel)"
+topics: [] # ids of the predefined topics
+keywords:
+  - "knowledge graphs"
+  - "semantic interoperability"
+annotation: >-
+  One paragraph, up to 50 words.
+email: someone@example.org # optional, published on the site
+---
+Full text of the poster, used for full text search.
+```
+
+The PDFs currently in `docs/public/posters/` are generated placeholders. Replace them with the real posters.
+
 ## Concepts
 
 Each poster has:
