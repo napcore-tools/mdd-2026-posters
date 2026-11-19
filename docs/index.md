@@ -15,5 +15,5 @@ title: Poster Corner
 </header>
 
 <div class="home-content">
-  <PosterList />
+  <PosterGrid />
 </div>

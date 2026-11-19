@@ -31,7 +31,7 @@ Front matter:
 ```yaml
 ---
 slug: chimera # must match the file name
-status: ready
+status: ready # only posters with status "ready" are listed
 title: "Chimera: Interoperable and AI-ready Mobility (Meta)Data Leveraging Knowledge Graphs"
 authors: "Mario Scrocca, Marco Comerio, Marco Grassi, Alessio Carenini (Cefriel)"
 topics: [] # ids of the predefined topics
@@ -42,7 +42,7 @@ annotation: >-
   One paragraph, up to 50 words.
 email: someone@example.org # optional, published on the site
 ---
-Full text of the poster, used for full text search.
+Full text of the poster, used for full text search and shown collapsed on the poster page.
 ```
 
 The PDFs currently in `docs/public/posters/` are generated placeholders. Replace them with the real posters.

@@ -25,11 +25,11 @@ export default defineConfig({
     ['meta', { property: 'og:description', content: 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens' }],
   ],
 
-  // Poster pages: one column, no "On this page" outline
+  // Poster pages use the PosterLayout component (registered in theme/index.ts),
+  // so the poster Markdown files need no `layout` line of their own
   transformPageData(pageData) {
     if (pageData.relativePath.startsWith('posters/')) {
-      pageData.frontmatter.aside = false;
-      pageData.frontmatter.outline = false;
+      pageData.frontmatter.layout = 'PosterLayout';
     }
   },
 

@@ -6,6 +6,8 @@
 .home-header {
   margin: 0 0 32px;
   padding: 40px 24px;
+  /* The yellow rule also separates the header from the navy nav bar in dark mode */
+  border-bottom: 4px solid var(--napcore-yellow);
   background: linear-gradient(135deg, var(--napcore-navy) 0%, var(--napcore-navy-dark) 100%);
   color: #fff;
 }
