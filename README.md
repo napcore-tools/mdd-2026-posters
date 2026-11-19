@@ -90,7 +90,7 @@ Link previews (`og:image` and friends) need absolute URLs. They use `SITE_URL`, 
 
 ### Poster previews
 
-`scripts/build-previews.mjs` renders the first page of every `content/<slug>.pdf` into `docs/public/previews/<slug>-600.jpg` and `<slug>-1200.jpg` with [MuPDF](https://mupdf.com/) (the `mupdf` npm package, WebAssembly, no system dependencies). The images are generated, not committed. Previews newer than their PDF are kept, so only new or changed posters are rendered. A poster without a preview shows a stand-in with its title.
+`scripts/build-previews.mjs` renders the first page of every `content/<slug>.pdf` into `docs/public/previews/<slug>-600.jpg` and `<slug>-1200.jpg` with [MuPDF](https://mupdf.com/) (the `mupdf` npm package, WebAssembly, no system dependencies). The images are generated, not committed. Previews newer than their PDF are kept, so only new or changed posters are rendered. After changing the rendering itself (widths or JPEG quality in the script), run `npm run previews -- --force` to render all previews again. A poster without a preview shows a stand-in with its title.
 
 The `mupdf` package is licensed AGPL-3.0. It is used only as a build tool and is not part of the published site.
 

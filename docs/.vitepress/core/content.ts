@@ -29,7 +29,7 @@ export interface Poster {
   /** Slugs of topics from content/topics.csv */
   topics: string[];
   keywords: string[];
-  /** One paragraph, up to 50 words */
+  /** One paragraph; the length limit is MAX_ANNOTATION_WORDS in validation.ts */
   annotation: string;
   /** Published contact e-mail, if the authors provided one */
   email?: string;
