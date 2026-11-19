@@ -35,9 +35,11 @@ All poster content lives in `content/`:
 - `content/<slug>.pdf`: the printed poster, published unchanged at `/posters/<slug>.pdf`
 - `content/<slug>.md`: metadata in the front matter (see [Poster metadata](#poster-metadata)); the body is text extracted from the PDF, used for full text search only and never shown
 - `content/topics.csv`: the predefined topics (tab separated: `slug`, `label`, `description`)
-- `content/index.csv`: the metadata table that `scripts/pdf2md.py` turns into the `.md` files
+- `content/index.csv`: the initial metadata table, not used by the site (see below)
 
 The site builds a page `/posters/<slug>` for every poster with `status: ready`. The slug is the file name.
+
+The `.md` files are the source of the poster metadata: to change a title, authors, topics or any other field, edit the front matter of `content/<slug>.md`. The site never reads `content/index.csv`. It is used only by `scripts/pdf2md.py`, which is run manually to generate `.md` files from it and the PDFs, for example for a new poster. The script rewrites the `.md` file of every PDF that has a row in `index.csv`, so edits made in the `.md` files since are lost; keep only the files you want regenerated with `git diff` / `git checkout` before committing.
 
 ### Content check
 
