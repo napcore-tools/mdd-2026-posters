@@ -162,8 +162,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
             :has-preview="r.poster.hasPreview"
             sizes="(min-width: 1200px) 260px, (min-width: 960px) 22vw, (min-width: 640px) 30vw, 45vw"
           />
-          <span class="tile-body">
-            <span class="tile-title">{{ r.poster.title }}</span>
+          <div class="tile-body">
+            <h2 class="tile-title">{{ r.poster.title }}</h2>
             <span class="tile-authors">{{ r.poster.authors.join(', ') }}</span>
             <!-- snippet() escapes the text and only adds <mark> -->
             <span v-if="matchSnippet(r)" class="tile-snippet" v-html="matchSnippet(r)" />
@@ -172,7 +172,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
                 {{ topicLabel(t) }}
               </span>
             </span>
-          </span>
+          </div>
         </a>
       </li>
     </ul>
@@ -293,8 +293,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
 .topic-button .count {
   margin-left: 2px;
-  opacity: 0.65;
+  color: var(--vp-c-text-2);
   font-weight: 400;
+}
+
+.topic-button[aria-pressed='true'] .count {
+  color: inherit;
+  opacity: 0.85;
 }
 
 .result-count {
@@ -373,8 +378,24 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
   outline: none;
 }
 
+.tile:focus-visible :deep(.poster-thumb) {
+  outline: 3px solid var(--vp-c-brand-1);
+  outline-offset: 3px;
+}
+
 .tile:focus-visible .tile-title {
   text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile :deep(.poster-thumb) {
+    transition: none;
+  }
+
+  .tile:hover :deep(.poster-thumb),
+  .tile:focus-visible :deep(.poster-thumb) {
+    transform: none;
+  }
 }
 
 .tile-body {
@@ -384,8 +405,12 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 }
 
 .tile-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
   color: var(--napcore-heading);
   font-size: 1.05rem;
+  letter-spacing: normal;
   font-weight: 700;
   line-height: 1.3;
 }
@@ -421,6 +446,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
   border-radius: 2px;
   background: rgba(255, 203, 1, 0.45);
   color: var(--vp-c-text-1);
+}
+
+.dark .tile-snippet :deep(mark) {
+  background: var(--napcore-yellow);
+  color: var(--napcore-navy-dark);
 }
 
 .tile-topics {

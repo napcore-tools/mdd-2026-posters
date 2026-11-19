@@ -38,7 +38,13 @@ function formatSize(bytes: number): string {
         <p class="authors">{{ poster.authors.join(', ') }}</p>
       </header>
 
-      <a class="poster-preview" :href="pdfUrl" target="_blank" rel="noopener" :aria-label="`Open the poster as PDF`">
+      <a
+        class="poster-preview"
+        :href="pdfUrl"
+        target="_blank"
+        rel="noopener"
+        aria-label="Open the poster as PDF (opens in a new tab)"
+      >
         <PosterThumb
           :slug="poster.slug"
           :title="poster.title"
@@ -81,7 +87,9 @@ function formatSize(bytes: number): string {
         </dl>
 
         <div class="actions">
-          <a class="btn brand" :href="pdfUrl" target="_blank" rel="noopener">Open PDF</a>
+          <a class="btn brand" :href="pdfUrl" target="_blank" rel="noopener">
+            Open PDF<span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
           <a class="btn alt" :href="pdfUrl" :download="`${slug}.pdf`">
             Download PDF<span v-if="poster.pdfSize" class="size"> ({{ formatSize(poster.pdfSize) }})</span>
           </a>
@@ -164,6 +172,15 @@ function formatSize(bytes: number): string {
     top: calc(var(--vp-nav-height) + 24px);
     max-width: none;
   }
+}
+
+.poster-preview:focus-visible {
+  outline: none;
+}
+
+.poster-preview:focus-visible :deep(.poster-thumb) {
+  outline: 3px solid var(--vp-c-brand-1);
+  outline-offset: 3px;
 }
 
 .poster-meta {

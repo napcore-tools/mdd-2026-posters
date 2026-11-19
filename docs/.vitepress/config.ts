@@ -106,6 +106,13 @@ export default defineConfig({
     },
 
     docFooter: { prev: false, next: false },
+
+    notFound: {
+      title: 'Page not found',
+      quote: 'The poster or page you are looking for is not here. It may have been renamed or removed.',
+      linkText: 'Back to all posters',
+      linkLabel: 'Back to all posters',
+    },
   },
 
   vite: {
