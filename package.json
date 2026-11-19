@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@fontsource/titillium-web": "^5.3.0",
+    "minisearch": "^7.2.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {

@@ -56,7 +56,11 @@ function formatSize(bytes: number): string {
             <dt>Topics</dt>
             <dd>
               <ul class="chips">
-                <li v-for="t in poster.topics" :key="t">{{ topicLabel(t) }}</li>
+                <li v-for="t in poster.topics" :key="t">
+                  <a class="topic-link" :href="withBase(`/?topic=${t}`)" :title="`All posters on ${topicLabel(t)}`">
+                    {{ topicLabel(t) }}
+                  </a>
+                </li>
               </ul>
             </dd>
           </template>
@@ -229,6 +233,16 @@ dd a {
   color: var(--napcore-on-brand);
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+/* Topic chips link to the home page filtered by that topic */
+.chips .topic-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.chips li:has(.topic-link):hover {
+  background: var(--vp-c-brand-2);
 }
 
 .chips-plain li {

@@ -39,6 +39,10 @@ All poster content lives in `content/`:
 
 The site builds a page `/posters/<slug>` for every poster with `status: ready`. The slug is the file name.
 
+### Search and topics
+
+The home page searches all metadata fields and the poster text in the browser ([MiniSearch](https://lucaong.github.io/minisearch/), `docs/.vitepress/theme/search.ts`). Matches in title, keywords and authors rank highest; terms match as prefixes, with small typos and without accents. A topic button narrows the list to one topic. Search and topic are kept in the URL, so a filtered view can be linked, e.g. `/?topic=data-quality` or `/?q=datex`.
+
 ## Concepts
 
 Each poster has:
