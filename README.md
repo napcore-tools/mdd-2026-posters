@@ -18,7 +18,7 @@ npm run format     # check formatting (format:fix to apply)
 npm run previews   # render poster previews (runs before dev and build; -- --force to redo all)
 ```
 
-Pushing to `master` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). Without a custom domain the workflow sets `VITEPRESS_BASE=/mdd-2026-posters/`. To preview a build with that base locally, set the same variable for both `build` and `preview`.
+Pushing to `main` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). Without a custom domain the workflow sets `VITEPRESS_BASE=/mdd-2026-posters/`. To preview a build with that base locally, set the same variable for both `build` and `preview`.
 
 Link previews (`og:image` and friends) need absolute URLs. They use `SITE_URL`, which defaults to `https://napcore-tools.github.io/mdd-2026-posters`; with a custom domain the workflow sets it.
 
