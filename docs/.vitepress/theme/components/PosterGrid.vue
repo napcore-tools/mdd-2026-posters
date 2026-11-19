@@ -2,7 +2,10 @@
 // Home page: all posters as tiles. Search and topic filter are added on top in phase 4.
 import { withBase } from 'vitepress';
 import { data as posters } from '@/data/posters.data';
+import { data as topics } from '@/data/topics.data';
 import PosterThumb from './PosterThumb.vue';
+
+const topicLabel = (slug: string) => topics.find((t) => t.slug === slug)?.label ?? slug;
 </script>
 
 <template>
@@ -12,7 +15,10 @@ import PosterThumb from './PosterThumb.vue';
         <PosterThumb :title="p.title" />
         <span class="tile-body">
           <span class="tile-title">{{ p.title }}</span>
-          <span class="tile-authors">{{ p.authors }}</span>
+          <span class="tile-authors">{{ p.authors.join(', ') }}</span>
+          <span v-if="p.topics.length" class="tile-topics">
+            <span v-for="t in p.topics" :key="t" class="topic">{{ topicLabel(t) }}</span>
+          </span>
         </span>
       </a>
     </li>
@@ -96,6 +102,23 @@ import PosterThumb from './PosterThumb.vue';
   color: var(--vp-c-text-2);
   font-size: 0.9rem;
   line-height: 1.4;
+}
+
+.tile-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.topic {
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 @media (max-width: 639px) {

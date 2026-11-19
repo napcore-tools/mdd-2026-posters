@@ -1,9 +1,11 @@
 <script setup lang="ts">
-// Layout of a poster page (docs/posters/<slug>.md); config.ts assigns it to every file in posters/.
-// Metadata come from the posters data loader, the Markdown body is the text of the poster.
+// Layout of a poster page (dynamic route docs/posters/[slug].md); config.ts assigns it.
+// Everything shown comes from the posters data loader (front matter of content/<slug>.md).
+// The Markdown body of a poster is text extracted from the PDF and is used for search only.
 import { computed } from 'vue';
-import { Content, useData, withBase } from 'vitepress';
+import { useData, withBase } from 'vitepress';
 import { data as posters } from '@/data/posters.data';
+import { data as topics } from '@/data/topics.data';
 import PosterThumb from './PosterThumb.vue';
 
 const { page } = useData();
@@ -13,6 +15,8 @@ const index = computed(() => posters.findIndex((p) => p.slug === slug.value));
 const poster = computed(() => posters[index.value]);
 const prev = computed(() => (index.value > 0 ? posters[index.value - 1] : undefined));
 const next = computed(() => (index.value >= 0 ? posters[index.value + 1] : undefined));
+
+const topicLabel = (slug: string) => topics.find((t) => t.slug === slug)?.label ?? slug;
 
 const pdfUrl = computed(() => withBase(`/posters/${slug.value}.pdf`));
 
@@ -31,7 +35,7 @@ function formatSize(bytes: number): string {
     <article v-else class="poster">
       <header class="poster-head">
         <h1>{{ poster.title }}</h1>
-        <p class="authors">{{ poster.authors }}</p>
+        <p class="authors">{{ poster.authors.join(', ') }}</p>
       </header>
 
       <a class="poster-preview" :href="pdfUrl" target="_blank" rel="noopener" :aria-label="`Open the poster as PDF`">
@@ -46,7 +50,7 @@ function formatSize(bytes: number): string {
             <dt>Topics</dt>
             <dd>
               <ul class="chips">
-                <li v-for="t in poster.topics" :key="t">{{ t }}</li>
+                <li v-for="t in poster.topics" :key="t">{{ topicLabel(t) }}</li>
               </ul>
             </dd>
           </template>
@@ -72,11 +76,6 @@ function formatSize(bytes: number): string {
             Download PDF<span v-if="poster.pdfSize" class="size"> ({{ formatSize(poster.pdfSize) }})</span>
           </a>
         </div>
-
-        <details v-if="poster.text" class="poster-text">
-          <summary>Text of the poster</summary>
-          <Content class="vp-doc" />
-        </details>
       </div>
     </article>
 
@@ -277,18 +276,6 @@ dd a {
 .btn.alt:hover {
   background: var(--vp-c-brand-1);
   color: var(--napcore-on-brand);
-}
-
-.poster-text {
-  margin-top: 32px;
-  border-top: 2px solid var(--napcore-rule);
-}
-
-.poster-text summary {
-  padding: 12px 0;
-  color: var(--napcore-heading);
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .unpublished {

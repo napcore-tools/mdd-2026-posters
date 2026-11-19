@@ -21,31 +21,14 @@ Pushing to `master` builds the site and deploys it to GitHub Pages (`.github/wor
 
 ## Adding a poster
 
-Each poster consists of two files that share the same slug:
+All poster content lives in `content/`:
 
-- `docs/posters/<slug>.md`: metadata in the front matter, text extracted from the poster in the body
-- `docs/public/posters/<slug>.pdf`: the printed poster, served unchanged at `/posters/<slug>.pdf`
+- `content/<slug>.pdf`: the printed poster, published unchanged at `/posters/<slug>.pdf`
+- `content/<slug>.md`: metadata in the front matter (see [Poster metadata](#poster-metadata)); the body is text extracted from the PDF, used for full text search only and never shown
+- `content/topics.csv`: the predefined topics (tab separated: `slug`, `label`, `description`)
+- `content/index.csv`: the metadata table that `scripts/pdf2md.py` turns into the `.md` files
 
-Front matter:
-
-```yaml
----
-slug: chimera # must match the file name
-status: ready # only posters with status "ready" are listed
-title: "Chimera: Interoperable and AI-ready Mobility (Meta)Data Leveraging Knowledge Graphs"
-authors: "Mario Scrocca, Marco Comerio, Marco Grassi, Alessio Carenini (Cefriel)"
-topics: [] # ids of the predefined topics
-keywords:
-  - "knowledge graphs"
-  - "semantic interoperability"
-annotation: >-
-  One paragraph, up to 50 words.
-email: someone@example.org # optional, published on the site
----
-Full text of the poster, used for full text search and shown collapsed on the poster page.
-```
-
-The PDFs currently in `docs/public/posters/` are generated placeholders. Replace them with the real posters.
+The site builds a page `/posters/<slug>` for every poster with `status: ready`. The slug is the file name.
 
 ## Concepts
 
@@ -57,7 +40,7 @@ Each poster has:
 
 ## Poster metadata
 
-One poster will have one sidecar file with name `{slug}.md`. Metadata in front matter, 
+One poster will have one sidecar file with name `{slug}.md`. Metadata in front matter,
 
 - slug: short textual identifier of the poster
 - title: text, can include subtitle

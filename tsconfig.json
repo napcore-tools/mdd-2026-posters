@@ -16,7 +16,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "types": ["vite/client"]
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client", "node"]
   },
   "include": ["docs/**/*.ts", "docs/**/*.vue", "*.ts"],
   "exclude": ["node_modules", "docs/.vitepress/cache", "docs/.vitepress/dist"]

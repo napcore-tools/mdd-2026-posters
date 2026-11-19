@@ -1,5 +1,8 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig, type Plugin } from 'vitepress';
+import { copyFileSync, createReadStream, existsSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
+import { CONTENT_DIR, readPosters } from './core/content.ts';
 
 // GitHub Pages serves the site from /mdd-2026-posters/; the deploy workflow sets VITEPRESS_BASE.
 // Locally the site runs at the root.
@@ -9,10 +12,27 @@ const BASE_PATH = process.env.VITEPRESS_BASE || '/';
 const withBase = (url: string) => BASE_PATH.replace(/\/+$/, '') + url;
 
 const REPO_URL = 'https://github.com/napcore-tools/mdd-2026-posters';
+const DESCRIPTION = 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens';
+
+/** Dev server: serves content/<slug>.pdf at /posters/<slug>.pdf (the build copies them in buildEnd) */
+function posterPdfs(): Plugin {
+  return {
+    name: 'mdd-poster-pdfs',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const match = req.url?.match(/\/posters\/([a-z0-9-]+)\.pdf(?:\?.*)?$/);
+        const file = match && join(CONTENT_DIR, `${match[1]}.pdf`);
+        if (!file || !existsSync(file)) return next();
+        res.setHeader('Content-Type', 'application/pdf');
+        createReadStream(file).pipe(res);
+      });
+    },
+  };
+}
 
 export default defineConfig({
   title: 'MDD 2026 Posters',
-  description: 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens',
+  description: DESCRIPTION,
   lang: 'en-GB',
   base: BASE_PATH,
   cleanUrls: true,
@@ -22,14 +42,28 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#ffcb01' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'MDD 2026 Posters' }],
-    ['meta', { property: 'og:description', content: 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens' }],
+    ['meta', { property: 'og:description', content: DESCRIPTION }],
   ],
 
-  // Poster pages use the PosterLayout component (registered in theme/index.ts),
-  // so the poster Markdown files need no `layout` line of their own
+  // Poster pages come from the dynamic route docs/posters/[slug].md. They use the
+  // PosterLayout component (registered in theme/index.ts) and take title and
+  // description from the route params.
   transformPageData(pageData) {
     if (pageData.relativePath.startsWith('posters/')) {
       pageData.frontmatter.layout = 'PosterLayout';
+      if (pageData.params?.title) pageData.title = pageData.params.title;
+      if (pageData.params?.description) pageData.description = pageData.params.description;
+    }
+  },
+
+  // Publish the PDFs of published posters at /posters/<slug>.pdf
+  buildEnd(siteConfig) {
+    const outDir = join(siteConfig.outDir, 'posters');
+    mkdirSync(outDir, { recursive: true });
+    for (const { slug } of readPosters()) {
+      const pdf = join(CONTENT_DIR, `${slug}.pdf`);
+      if (existsSync(pdf)) copyFileSync(pdf, join(outDir, `${slug}.pdf`));
+      else console.warn(`[posters] content/${slug}.pdf is missing`);
     }
   },
 
@@ -53,6 +87,7 @@ export default defineConfig({
   },
 
   vite: {
+    plugins: [posterPdfs()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('.', import.meta.url)),
