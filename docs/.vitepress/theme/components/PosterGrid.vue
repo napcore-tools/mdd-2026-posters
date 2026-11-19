@@ -12,7 +12,12 @@ const topicLabel = (slug: string) => topics.find((t) => t.slug === slug)?.label 
   <ul class="poster-grid">
     <li v-for="p in posters" :key="p.slug">
       <a class="tile" :href="withBase(p.url)">
-        <PosterThumb :title="p.title" />
+        <PosterThumb
+          :slug="p.slug"
+          :title="p.title"
+          :has-preview="p.hasPreview"
+          sizes="(min-width: 1200px) 260px, (min-width: 960px) 22vw, (min-width: 640px) 30vw, 45vw"
+        />
         <span class="tile-body">
           <span class="tile-title">{{ p.title }}</span>
           <span class="tile-authors">{{ p.authors.join(', ') }}</span>

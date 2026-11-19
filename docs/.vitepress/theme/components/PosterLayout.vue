@@ -39,7 +39,13 @@ function formatSize(bytes: number): string {
       </header>
 
       <a class="poster-preview" :href="pdfUrl" target="_blank" rel="noopener" :aria-label="`Open the poster as PDF`">
-        <PosterThumb :title="poster.title" />
+        <PosterThumb
+          :slug="poster.slug"
+          :title="poster.title"
+          :has-preview="poster.hasPreview"
+          sizes="(min-width: 1200px) 425px, (min-width: 768px) 36vw, 280px"
+          :lazy="false"
+        />
       </a>
 
       <div class="poster-meta">

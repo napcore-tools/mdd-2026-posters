@@ -4,13 +4,19 @@
  * content/<slug>.md   metadata in front matter, body = text extracted from the PDF (search only)
  * content/<slug>.pdf  the printed poster
  * content/topics.csv  predefined topics, tab separated: slug, label, description
+ *
+ * Preview images of the PDFs are rendered by scripts/build-previews.mjs into docs/public/previews/.
  */
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 
 export const CONTENT_DIR = fileURLToPath(new URL('../../../content/', import.meta.url));
+const PREVIEW_DIR = fileURLToPath(new URL('../../public/previews/', import.meta.url));
+
+/** Widths of the preview images, see scripts/build-previews.mjs */
+const PREVIEW_WIDTHS = [600, 1200];
 
 /** Only posters with this status get a page and appear in the list */
 export const PUBLISHED_STATUS = 'ready';
@@ -33,6 +39,8 @@ export interface Poster {
   text: string;
   /** Size of content/<slug>.pdf in bytes, 0 if the file is missing */
   pdfSize: number;
+  /** Whether the preview images /previews/<slug>-600.jpg and -1200.jpg exist */
+  hasPreview: boolean;
 }
 
 export interface Topic {
@@ -71,6 +79,7 @@ export function readPoster(file: string): Poster {
     url: `/posters/${slug}`,
     text: content.replace(/\s+/g, ' ').trim(),
     pdfSize: fileSize(file.replace(/\.md$/, '.pdf')),
+    hasPreview: PREVIEW_WIDTHS.every((w) => existsSync(join(PREVIEW_DIR, `${slug}-${w}.jpg`))),
   };
 }
 

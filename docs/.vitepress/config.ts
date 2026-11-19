@@ -11,6 +11,11 @@ const BASE_PATH = process.env.VITEPRESS_BASE || '/';
 // VitePress does not add the base to `head` tags or to HTML in the footer
 const withBase = (url: string) => BASE_PATH.replace(/\/+$/, '') + url;
 
+// Public address of the site, for absolute URLs in link previews (og:image needs one).
+// The deploy workflow sets SITE_URL when the repository has a custom domain.
+const SITE_URL = (process.env.SITE_URL || 'https://napcore-tools.github.io/mdd-2026-posters').replace(/\/+$/, '');
+
+const SITE_TITLE = 'MDD 2026 Posters';
 const REPO_URL = 'https://github.com/napcore-tools/mdd-2026-posters';
 const DESCRIPTION = 'Poster Corner of the NAPCORE Mobility Data Days 2026 in Athens';
 
@@ -31,7 +36,7 @@ function posterPdfs(): Plugin {
 }
 
 export default defineConfig({
-  title: 'MDD 2026 Posters',
+  title: SITE_TITLE,
   description: DESCRIPTION,
   lang: 'en-GB',
   base: BASE_PATH,
@@ -41,18 +46,30 @@ export default defineConfig({
     ['link', { rel: 'icon', type: 'image/png', href: withBase('/favicon.png') }],
     ['meta', { name: 'theme-color', content: '#ffcb01' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'MDD 2026 Posters' }],
-    ['meta', { property: 'og:description', content: DESCRIPTION }],
+    ['meta', { property: 'og:site_name', content: SITE_TITLE }],
   ],
 
   // Poster pages come from the dynamic route docs/posters/[slug].md. They use the
   // PosterLayout component (registered in theme/index.ts) and take title and
   // description from the route params.
+  // Every page gets link preview tags; poster pages show the poster as the image.
   transformPageData(pageData) {
+    const params = pageData.params;
     if (pageData.relativePath.startsWith('posters/')) {
       pageData.frontmatter.layout = 'PosterLayout';
-      if (pageData.params?.title) pageData.title = pageData.params.title;
-      if (pageData.params?.description) pageData.description = pageData.params.description;
+      if (params?.title) pageData.title = params.title;
+      if (params?.description) pageData.description = params.description;
+    }
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ['meta', { property: 'og:title', content: pageData.title || SITE_TITLE }],
+      ['meta', { property: 'og:description', content: pageData.description || DESCRIPTION }]
+    );
+    if (params?.slug && params.hasPreview) {
+      pageData.frontmatter.head.push(
+        ['meta', { property: 'og:image', content: `${SITE_URL}/previews/${params.slug}-1200.jpg` }],
+        ['meta', { name: 'twitter:card', content: 'summary_large_image' }]
+      );
     }
   },
 

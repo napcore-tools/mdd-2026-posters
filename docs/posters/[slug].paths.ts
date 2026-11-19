@@ -6,7 +6,7 @@ export default {
   watch: ['../../content/*.md'],
   paths(files: string[]) {
     return readPosters(files).map((p) => ({
-      params: { slug: p.slug, title: p.title, description: p.annotation },
+      params: { slug: p.slug, title: p.title, description: p.annotation, hasPreview: p.hasPreview },
     }));
   },
 };

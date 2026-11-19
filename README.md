@@ -15,9 +15,18 @@ npm run build      # static site in docs/.vitepress/dist
 npm run preview    # serve the built site
 npm run type-check
 npm run format     # check formatting (format:fix to apply)
+npm run previews   # render poster previews (runs before dev and build; -- --force to redo all)
 ```
 
 Pushing to `master` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`). Without a custom domain the workflow sets `VITEPRESS_BASE=/mdd-2026-posters/`. To preview a build with that base locally, set the same variable for both `build` and `preview`.
+
+Link previews (`og:image` and friends) need absolute URLs. They use `SITE_URL`, which defaults to `https://napcore-tools.github.io/mdd-2026-posters`; with a custom domain the workflow sets it.
+
+### Poster previews
+
+`scripts/build-previews.mjs` renders the first page of every `content/<slug>.pdf` into `docs/public/previews/<slug>-600.jpg` and `<slug>-1200.jpg` with [MuPDF](https://mupdf.com/) (the `mupdf` npm package, WebAssembly, no system dependencies). The images are generated, not committed. Previews newer than their PDF are kept, so only new or changed posters are rendered. A poster without a preview shows a stand-in with its title.
+
+The `mupdf` package is licensed AGPL-3.0. It is used only as a build tool and is not part of the published site.
 
 ## Adding a poster
 

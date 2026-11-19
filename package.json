@@ -8,7 +8,10 @@
     "node": "^22.12.0 || >=24.0.0"
   },
   "scripts": {
+    "previews": "node scripts/build-previews.mjs",
+    "predev": "npm run previews",
     "dev": "vitepress dev docs",
+    "prebuild": "npm run previews",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "type-check": "vue-tsc --noEmit",
@@ -22,6 +25,7 @@
   "devDependencies": {
     "@types/node": "^24.19.2",
     "gray-matter": "^4.0.3",
+    "mupdf": "^1.28.6",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "vitepress": "^2.0.0-alpha.17",

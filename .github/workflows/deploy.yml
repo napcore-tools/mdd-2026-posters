@@ -37,6 +37,7 @@ jobs:
           CNAME=$(gh api repos/${{ github.repository }}/pages --jq '.cname // empty')
           if [ -n "$CNAME" ]; then
             echo "has_custom_domain=true" >> $GITHUB_OUTPUT
+            echo "cname=$CNAME" >> $GITHUB_OUTPUT
           else
             echo "has_custom_domain=false" >> $GITHUB_OUTPUT
           fi
@@ -49,6 +50,8 @@ jobs:
           # Without a custom domain the site lives under /<repository>/
           if [ "${{ steps.check-domain.outputs.has_custom_domain }}" = "false" ]; then
             export VITEPRESS_BASE=/${GITHUB_REPOSITORY#*/}/
+          else
+            export SITE_URL=https://${{ steps.check-domain.outputs.cname }}
           fi
           npm run build
       - name: Upload artifact
