@@ -89,6 +89,10 @@ onMounted(() => {
   topic.value = shownTopics.some((x) => x.slug === t) ? t : '';
   window.addEventListener('keydown', onKeydown);
 
+  // Start in the search box, but only with a mouse or trackpad: on touch devices
+  // focusing opens the on-screen keyboard, which would cover the posters
+  if (window.matchMedia('(pointer: fine)').matches) input.value?.focus({ preventScroll: true });
+
   // On phones the topics scroll sideways: bring a preselected topic into view
   nextTick(() => {
     const row = topicFilter.value;
