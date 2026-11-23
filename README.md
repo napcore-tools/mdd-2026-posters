@@ -22,7 +22,7 @@ All poster content lives in `content/`:
 - `content/<slug>.pdf`: the printed poster (A2), published unchanged at `/posters/<slug>.pdf`
 - `content/<slug>.md`: the poster metadata (see below)
 - `content/topics.csv`: the predefined topics, tab separated: `slug`, `label`, `description`
-- `content/index.csv`: the initial metadata table, not used by the site (see below)
+- `content/index.xlsx`: the table of submitted posters, used only to create the `.md` of new posters (see below); the site does not read it
 
 The slug is the file name. The site builds a page `/posters/<slug>` for every poster with `status: ready`.
 
@@ -54,11 +54,27 @@ Text extracted from the PDF ...
 - `email`: contact e-mail, optional; published on the poster page if given
 - body: text extracted from the PDF. It is used only for full text search and never shown, as extracted text can be messy.
 
-### Initial import from index.csv
+### Adding or updating posters
 
-The metadata were first collected in an [Excel file on SharePoint](https://rupprechtconsultde.sharepoint.com/:x:/r/sites/NAPCORE-Xallpartners254/Shared%20Documents/WG5%20-%20Data%20Provision%20and%20Use/Task%205.2%20Tools/Mobility%20Data%20Days%202026/Posters/MDD%202026%20Posters.xlsx?d=w3d9563bbedda4b3da8eb995bbc198f3b&csf=1&web=1&e=GTUBpa) and exported to `content/index.csv`.
+The posters are collected in an [Excel file on SharePoint](https://rupprechtconsultde.sharepoint.com/:x:/r/sites/NAPCORE-Xallpartners254/Shared%20Documents/WG5%20-%20Data%20Provision%20and%20Use/Task%205.2%20Tools/Mobility%20Data%20Days%202026/Posters/MDD%202026%20Posters.xlsx?d=w3d9563bbedda4b3da8eb995bbc198f3b&csf=1&web=1&e=GTUBpa). A copy of it is kept as `content/index.xlsx`: sheet `index`, the first row naming the columns `slug`, `status`, `title`, `authors`, `topics`, `keywords`, `annotation`, `e-mail`.
 
-The site never reads `content/index.csv`. It is used only by `scripts/pdf2md.py`, which is run manually to generate `.md` files from it and the PDFs, for example for a new poster (requires Python and poppler's `pdftotext`; tesseract for PDFs without a text layer). The script rewrites the `.md` file of every PDF that has a row in `index.csv`, so edits made in the `.md` files since are lost; keep only the files you want regenerated with `git diff` / `git checkout` before committing.
+`scripts/pdf2md.py` creates the `.md` of a new poster from its row in `index.xlsx` and the text of its PDF. Once created, the `.md` is the source of the metadata and the script does not overwrite it. It needs [uv](https://docs.astral.sh/uv/), which installs the Python dependencies, and `pdftotext` from poppler; `pdftoppm` and tesseract only for PDFs without a text layer.
+
+```sh
+uv run scripts/pdf2md.py                  # overview: which posters have a PDF and a .md
+uv run scripts/pdf2md.py nlkf webstore    # create the .md of new posters
+uv run scripts/pdf2md.py --text uvarbox   # new version of a PDF: replace only the search text
+uv run scripts/pdf2md.py --force nlkf     # rewrite the .md from the index; edits in the .md are lost
+```
+
+To add a poster:
+
+1. Copy the updated Excel file from SharePoint to `content/index.xlsx` and the PDF to `content/<slug>.pdf`.
+2. Run `uv run scripts/pdf2md.py <slug>`.
+3. Check the front matter of `content/<slug>.md`; add the topics if the index has none.
+4. Run `npm run build` to check the content, then commit.
+
+Changes to the metadata of an existing poster go directly into its `.md` file.
 
 ### Content check
 
@@ -105,4 +121,4 @@ The home page searches in the browser with [MiniSearch](https://lucaong.github.i
 - `docs/.vitepress/data/`: data loaders for posters and topics
 - `docs/.vitepress/theme/`: NAPCORE theme, components, search
 - `docs/posters/[slug].md`, `[slug].paths.ts`: one page per published poster
-- `scripts/`: preview rendering, `.md` generation from `index.csv`
+- `scripts/`: preview rendering, `.md` creation from `index.xlsx`

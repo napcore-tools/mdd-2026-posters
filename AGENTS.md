@@ -6,7 +6,8 @@ Instructions for AI coding assistants. VitePress site indexing the posters of th
 
 - `content/` belongs to the colleagues collecting the posters. Do not edit poster metadata, PDFs or `topics.csv` unless asked; report content problems instead.
 - The `.md` front matter is the source of the metadata. The body is PDF-extracted text for search only; never display it.
-- Do not run `scripts/pdf2md.py`: it overwrites the `.md` files of every poster listed in `content/index.csv`, including manual edits.
+- New posters: `uv run scripts/pdf2md.py <slug>` creates the `.md` from `content/index.xlsx` and the PDF; without slugs it prints an overview. A new version of a PDF: `--text <slug>`, which keeps the front matter. Do not use `--force` unless asked: it rewrites the front matter from the index and loses edits made in the `.md`.
+- Inspect `index.xlsx` with the script's overview or with openpyxl in normal mode; read-only mode trusts the stored sheet size and can skip the header row.
 - New front matter fields need changes in `core/content.ts` (`Poster`, `readPoster`), `core/validation.ts`, the README field list and, if searchable, `theme/search.ts`.
 
 ## Checks
