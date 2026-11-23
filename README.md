@@ -58,14 +58,17 @@ Text extracted from the PDF ...
 
 The posters are collected in an [Excel file on SharePoint](https://rupprechtconsultde.sharepoint.com/:x:/r/sites/NAPCORE-Xallpartners254/Shared%20Documents/WG5%20-%20Data%20Provision%20and%20Use/Task%205.2%20Tools/Mobility%20Data%20Days%202026/Posters/MDD%202026%20Posters.xlsx?d=w3d9563bbedda4b3da8eb995bbc198f3b&csf=1&web=1&e=GTUBpa). A copy of it is kept as `content/index.xlsx`: sheet `index`, the first row naming the columns `slug`, `status`, `title`, `authors`, `topics`, `keywords`, `annotation`, `e-mail`.
 
-`scripts/pdf2md.py` creates the `.md` of a new poster from its row in `index.xlsx` and the text of its PDF. Once created, the `.md` is the source of the metadata and the script does not overwrite it. It needs [uv](https://docs.astral.sh/uv/), which installs the Python dependencies, and `pdftotext` from poppler; `pdftoppm` and tesseract only for PDFs without a text layer.
+`scripts/pdf2md.py` creates the `.md` of a new poster from its row in `index.xlsx` and the text of its PDF. Once created, the `.md` is the source of the metadata and the script does not overwrite it. It needs [uv](https://docs.astral.sh/uv/), which installs the Python dependencies (openpyxl, PyMuPDF); [tesseract](https://github.com/tesseract-ocr/tesseract) only for PDFs without a text layer.
 
 ```sh
 uv run scripts/pdf2md.py                  # overview: which posters have a PDF and a .md
 uv run scripts/pdf2md.py nlkf webstore    # create the .md of new posters
 uv run scripts/pdf2md.py --text uvarbox   # new version of a PDF: replace only the search text
+uv run scripts/pdf2md.py --clean --all    # clean the current search text of all posters again
 uv run scripts/pdf2md.py --force nlkf     # rewrite the .md from the index; edits in the .md are lost
 ```
+
+The extracted text is cleaned up for search: odd characters and symbol-only tokens, stray letters, repeated lines and phrases (some posters draw their text twice) are removed, and paragraphs are wrapped at 100 characters. There is no dictionary check, as posters are full of names, acronyms and standards that no dictionary knows. `--clean` applies a changed cleanup to existing posters without the PDFs, which also covers posters whose text came from OCR.
 
 To add a poster:
 
@@ -108,7 +111,7 @@ Link previews (`og:image` and friends) need absolute URLs. They use `SITE_URL`, 
 
 `scripts/build-previews.mjs` renders the first page of every `content/<slug>.pdf` into `docs/public/previews/<slug>-600.jpg` and `<slug>-1200.jpg` with [MuPDF](https://mupdf.com/) (the `mupdf` npm package, WebAssembly, no system dependencies). The images are generated, not committed. Previews newer than their PDF are kept, so only new or changed posters are rendered. After changing the rendering itself (widths or JPEG quality in the script), run `npm run previews -- --force` to render all previews again. A poster without a preview shows a stand-in with its title.
 
-The `mupdf` package is licensed AGPL-3.0. It is used only as a build tool and is not part of the published site.
+The `mupdf` package, like PyMuPDF used by `scripts/pdf2md.py`, is licensed AGPL-3.0. Both are used only as tools and are not part of the published site.
 
 ### Search
 
