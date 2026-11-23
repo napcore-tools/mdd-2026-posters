@@ -9,86 +9,33 @@ annotation: "Good mobility data tools often stay hidden inside the organisations
 email: "jan.vlcinsky@tamtamresearch.com"
 ---
 
-AAwweessoommee N NAAPPC COOR RE E T Toooollss
-EEu urroop peeaann MMoobbiilliittyy DDaattaa T Toooollss C Caattaallooggu uee
-D Diissccoovveerr ttoooollss ffrroomm N NA APPC COOR REE aanndd tthhee wwiiddeerr ccoommm muunniittyy
-DDoonn’’tt hhiiddee yyoou urr wwhheeeell.. TTeellll eevveerryyoonnee aabboouutt iitt..
+Awesome NAPCORE Tools European Mobility Data Tools Catalogue Discover tools from NAPCORE and the
+wider community Don’t hide your wheel. Tell everyone about it. A legend, not based on history books.
+This story was made up to show the value of openness. Tool inclusion criteria Openly accessible
+tools for European mobility data, from NAPCORE and from the wider community. Openly accessible Open
+source or free to use European mobility data Supports European mobility data standards or workflows
+Ready for real use It works and has basic documentation The tools 24 tools 13 categories 13
+standards Bold built by NAPCORE Counts as of 23 November 2026 Understand the DATEX II Documentation
+DATEX II Browser XSD-Browser DATEX II Schema Generation Tool Check your data ALERT-C Locations
+Tester NeTEx validator Java SHACL validator (Interoperability Test Bed) Antu Create publish
+mobilityDCAT-AP Generator Tool NPlan Abzu Tiamat Extime Real-time aggregation Anshar Enlil Ukur
+Gibil Nirgali Lamassu Journeys maps MOTIS OpenTripPlanner Entur Geocoder Mobility Map Demo Vehicle
+Map Demo Search everything Ctrl
 
-››
+on a Mac Filter in every category
 
-››
+All tools
 
-››
+Shortcuts AI-friendly awesome.napcore.eu/help/ai.html llms.txt index for assistants llms-full.txt
+whole catalogue, one file OKF bundle a Markdown file per tool “Read
+https://awesome.napcore.eu/llms.txt. Which open-source tools validate NeTEx files?” Got a tool?
+Bring it. awesome.napcore.eu/contribute.html Discussion forum on GitHub publiccode.yaml in your
+repository Pull request add it yourself Jan Vlčinský TamTam Research jan.vlcinsky@tamtamresearch.com
+Mobility Data Days 2026 Athens 25–26 November Tools AI Co-funded by the European Union
+awesome.napcore.eu Hidden
 
-HHiid dddeenn
+Discovered
 
-DDiissccoovveerreedd
+Shown
 
-SShhoow wnn
-
-U Usseedd
-
-AA lleeggeenndd,, nnoott bbaasseedd oonn hhiissttoorryy bbooookkss.. T Thhiiss ssttoorryy wwaass m maaddee uupp ttoo sshhoow w tthhee vvaalluuee ooff ooppeennnneessss..
-
-TTooooll iinncclluussiioonn ccrriitteerriiaa
-O Oppeennllyy aacccceessssiibbllee ttoooollss ffoorr EEuurrooppeeaann mmoobbiilliittyy ddaattaa,, ffrroomm N NA APPC CO OR REE aanndd ffrroomm tthhee wwiiddeerr ccoom mmmuunniittyy..
-OOppeennllyy aacccceessssiib bllee
-OOppeenn ssoouurrccee oorr ffrreeee ttoo uussee
-E Eu urroop peeaann m moob biilliittyy d daattaa
-SSuuppppoorrttss EEuurrooppeeaann m moobbiilliittyy ddaattaa ssttaannddaarrddss oorr wwoorrkkfflloow wss
-R Reeaaddyy ffoorr rreeaall uussee
-IItt w woorrkkss aanndd hhaass bbaassiicc ddooccuummeennttaattiioonn
-
-TThhee ttoooollss
-U Unnd deerrssttaannd d tthhee ssttaannd daarrd dss
-D DAAT TEEXX IIII D Dooccuummeennttaattiioonn D DA ATTEEXX IIII BBrroowwsseerr XXSSD D--B Brroowwsseerr DDA ATTEEXX IIII SScchheem maa G Geenneerraattiioonn TTooooll
-
-CChheecckk yyoou urr ddaattaa
-A ALLEERRT T--CC LLooccaattiioonnss TTeesstteerr NNeeT TEExx vvaalliiddaattoorr JJaavvaa SSHHA AC CLL vvaalliiddaattoorr ((IInntteerrooppeerraabbiilliittyy T Teesstt B Beedd)) AAnnttuu
-
-24 13 13 24 ttoooollss ·· 13 ccaatteeggoorriieess ·· 13 ssttaannd daarrddss
-BBoolldd == bbuuiilltt bbyy NNAAPPC CO OR REE ·· C Coouunnttss aass ooff 2233 NNoovveemmbbeerr 22002266
-
-CCrreeaattee & & p pu ub blliisshh
-
-RReeaall--ttiimmee & & aaggggrreeggaattiioonn
-
-JJoou urrnneeyyss && m maappss
-
-m moobbiilliittyyD DCCAAT T--AAP P G Geenneerraattoorr T Tooooll N NPPllaann AAbbzzuu T Tiiaam maatt EExxttiim mee
-
-A Annsshhaarr EEnnlliill U Ukkuurr G Giibbiill N Niirrggaallii LLaam maassssuu
-
-MMO OT TIISS O OppeennTTrriippPPllaannnneerr EEnnttuurr GGeeooccooddeerr M Moobbiilliittyy MMaapp D Deem moo VVeehhiiccllee MMaapp D Deem moo
-
-SSeeaarrcchh eevveerryytthhiinngg
-
-⌘ CCttrrll K K //
-
-K K oonn aa MMaacc
-
-FFiilltteerr iinn eevveerryy ccaatteeggoorryy
-gg t ? t AAllll ttoooollss ? SShhoorrttccuuttss
-
-AAII--ffrriieennddllyy
-aawweessoommee..nnaappccoorree..eeuu//hheellpp//aaii..hhttm mll
-llllmmss..ttxxtt — — iinnddeexx ffoorr aassssiissttaannttss llllm mss--ffuullll..ttxxtt — — w whhoollee ccaattaalloogguuee,, oonnee ffiillee OOKKFF b bu unnd dllee — — aa MMaarrkkddoow wnn ffiillee ppeerr ttooooll
-““R Reeaadd hhttttppss::////aaw weessoommee..nnaappccoorree..eeuu//llllmmss..ttxxtt.. W Whhiicchh ooppeenn--ssoouurrccee ttoooollss vvaalliiddaattee N NeeT TEExx ffiilleess??””
-
-GGoott aa ttooooll?? BBrriinngg iitt..
-aaw weessoommee..nnaappccoorree..eeuu//ccoonnttrriib bu uttee..hhttm mll
-
-DDiissccu ussssiioonn ffoorruum m
-oonn GGiittH Huubb
-
-č JJaann V Vllčiinnsskkýý ·· TTaam mT Taam m RReesseeaarrcchh ·· jjaann..vvllcciinnsskkyy@ @ttaam mttaammrreesseeaarrcchh..ccoom m
-M Moobbiilliittyy D Daattaa D Daayyss 22002266 ·· AAtthheennss ·· 2255––2266 N Noovveem mbbeerr ·· T Toooollss & & A AII
-CCoo--ffuunnddeedd bbyy tthhee EEuurrooppeeaann UUnniioonn
-
-p pu ubblliiccccood dee..yyaammll
-iinn yyoouurr rreeppoossiittoorryy
-
-P Puullll rreeq qu ueesstt
-aadddd iitt yyoouurrsseellff
-
-aawweessoom mee..nnaappccoorree..eeu u
+Used

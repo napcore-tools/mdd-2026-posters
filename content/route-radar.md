@@ -9,55 +9,37 @@ annotation: "RouteRadar shows when and how navigation services reroute traffic a
 email: "tisgrade@ndw.nu"
 ---
 
-RouteRadar é@°
+RouteRadar é@
 
-See how navigation providers :: eee
-respond to road closures. :
+See how navigation providers eee respond to road closures.
 
-Before closure During closure
-Regular route Detour route
+Before closure During closure Regular route Detour route
 
 RSSE
-A we
 
-Start @ End
-closure closure
+Start End closure
 
 Routing behaviour over time
 
-:
+Ends earlier than planned
 
-Ends earlier
-than planned
-
-Navigation Starts earlier
-Service 1 than planned
+Navigation Starts earlier Service 1 than planned
 
 Ends later
-than planned
 
-Navigation Starts later
-Service 2 than planned
+Navigation Starts later Service 2 than planned
 
-Ends earlier
-than planned
-
-Navigation
-Service 3
+Navigation Service 3
 
 Monitor Build your Compare
 
-See when and own timeline Easily compare
-how navigation Choose the period, the routing
-providers adjust moments and behaviour of
+See when and own timeline Easily compare how navigation Choose the period, the routing providers
+adjust moments and behaviour of
 
-their routes from routes you want —_— _ multiple navigation
-AtoB. to analyse. providers.
+their routes from routes you want multiple navigation AtoB. to analyse. providers.
 
-; Included navigation providers:
-Interested in RouteRadar?
+Included navigation providers: Interested in RouteRadar?
 
-Get in touch with us at ®) o O FM
-vV
+Get in touch with us at FM
 
 Apple Google TomTom Flitsmeister

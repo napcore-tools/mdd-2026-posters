@@ -9,10 +9,8 @@ annotation: "The NAPCORE ITS Reporting Tool, Task 5.1, aims to help Member State
 email: "sara.guerraoliveira@um.si"
 ---
 
-Dear Member State,
-, by 21 March 2028 send us your ITS progress report
-please follow our template and consult our KPI guidance document
-DG MOVE
+Dear Member State, by 21 March 2028 send us your ITS progress report please follow our template and
+consult our KPI guidance document DG MOVE
 
 Dear national ITS reporting authorities, Our Task 5.1 is working on the NAPCORE ITS Reporting Tool.
 
@@ -20,8 +18,8 @@ ITS Reporting Tool
 
 NAP
 
-Every section, a harmonised way of reporting:
-> guided answers > linked NAP evidence > semi-automated answers > fully automated answers
+Every section, a harmonised way of reporting: guided answers linked NAP evidence semi-automated
+answers fully automated answers
 
 graphic elements adapted from storyset.com
 
