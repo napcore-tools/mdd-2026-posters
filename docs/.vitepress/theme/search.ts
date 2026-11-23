@@ -1,7 +1,7 @@
 /**
  * Full text search over the posters, in the browser.
  *
- * Every metadata field is searched, plus the text extracted from the PDF. Matches in the
+ * Every metadata field is searched, including the slug, plus the text extracted from the PDF. Matches in the
  * title, keywords and authors rank above matches in the poster text. Terms match as
  * prefixes ("datex" finds "DATEX II"), longer terms also with small typos, and accents
  * are ignored ("vlcinsky" finds "Vlčinský"). All terms of a query must match.
@@ -40,10 +40,12 @@ export function createSearch(posters: Poster[], topics: Topic[]) {
 
   const index = new MiniSearch<SearchDoc>({
     idField: 'slug',
-    fields: ['title', 'authors', 'keywords', 'topics', 'annotation', 'email', 'text'],
+    // The slug is searchable too ("uvarbox", "napcore-helpdesk"), e.g. for organisers
+    // who know the posters by their file names
+    fields: ['slug', 'title', 'authors', 'keywords', 'topics', 'annotation', 'email', 'text'],
     processTerm: (term) => fold(term),
     searchOptions: {
-      boost: { title: 4, keywords: 3, authors: 3, topics: 2, annotation: 2, email: 1, text: 1 },
+      boost: { slug: 3, title: 4, keywords: 3, authors: 3, topics: 2, annotation: 2, email: 1, text: 1 },
       prefix: true,
       fuzzy: (term) => (term.length > 4 ? 0.2 : false),
       combineWith: 'AND',
