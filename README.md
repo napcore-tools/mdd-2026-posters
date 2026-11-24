@@ -13,6 +13,7 @@ The site is built with [VitePress](https://vitepress.dev/) and uses the NAPCORE 
 - Full text search over all metadata and the text of the posters
 - Filter by topic; search and topic are kept in the URL, so a filtered view can be linked
 - A page per poster with preview, annotation, topics, keywords, contact e-mail and the PDF to open or download
+- A "Discuss" button on the poster page, linking to the poster's thread in [GitHub Discussions](https://github.com/napcore-tools/mdd-2026-posters/discussions)
 - Link previews (title, annotation, poster image) when a poster page is shared
 
 ## Poster content
@@ -78,6 +79,10 @@ To add a poster:
 4. Run `npm run build` to check the content, then commit.
 
 Changes to the metadata of an existing poster go directly into its `.md` file.
+
+### Poster discussions
+
+Each poster has one thread in the "Poster discussions" category of [GitHub Discussions](https://github.com/napcore-tools/mdd-2026-posters/discussions). `docs/.vitepress/data/discussions.json` maps the slug to the thread number, e.g. `{ "nlkf": 12 }`; a poster without an entry has no "Discuss" button. For a new poster, create its thread by hand with the same opening post as the others (title, authors, link to the poster page, a line pointing to the pinned announcement), then add the number to the file and commit.
 
 ### Content check
 

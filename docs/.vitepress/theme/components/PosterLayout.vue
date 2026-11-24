@@ -6,6 +6,8 @@ import { computed } from 'vue';
 import { useData, withBase } from 'vitepress';
 import { data as posters } from '@/data/posters.data';
 import { data as topics } from '@/data/topics.data';
+// Slug -> number of the poster's thread in GitHub Discussions; maintained by hand.
+import discussions from '@/data/discussions.json';
 import PosterThumb from './PosterThumb.vue';
 
 const { page } = useData();
@@ -19,6 +21,12 @@ const next = computed(() => (index.value >= 0 ? posters[index.value + 1] : undef
 const topicLabel = (slug: string) => topics.find((t) => t.slug === slug)?.label ?? slug;
 
 const pdfUrl = computed(() => withBase(`/posters/${slug.value}.pdf`));
+
+const DISCUSSIONS_URL = 'https://github.com/napcore-tools/mdd-2026-posters/discussions';
+const discussionUrl = computed(() => {
+  const number = (discussions as Record<string, number>)[slug.value];
+  return number ? `${DISCUSSIONS_URL}/${number}` : undefined;
+});
 
 function formatSize(bytes: number): string {
   if (bytes >= 1024 * 1024) return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
@@ -92,6 +100,9 @@ function formatSize(bytes: number): string {
           </a>
           <a class="btn alt" :href="pdfUrl" :download="`${slug}.pdf`">
             Download PDF<span v-if="poster.pdfSize" class="size"> ({{ formatSize(poster.pdfSize) }})</span>
+          </a>
+          <a v-if="discussionUrl" class="btn alt" :href="discussionUrl" target="_blank" rel="noopener">
+            Discuss<span class="visually-hidden"> (opens in a new tab)</span>
           </a>
         </div>
       </div>
